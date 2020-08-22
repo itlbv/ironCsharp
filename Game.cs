@@ -1,21 +1,23 @@
 using Godot;
-using System;
 
 public class Game : Node
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+    private KinematicBody2D _selectedMob;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        GD.Print("Hello");
+        GetNode("Mob/UI/SelectionMarker").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob/UI/SelectionMarker").Connect("RightClick", this, nameof(RightCLickOnMob));
+        GetNode("Mob2/UI/SelectionMarker").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob2/UI/SelectionMarker").Connect("RightClick", this, nameof(RightCLickOnMob));
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public void LeftClickOnMob(KinematicBody2D mob){
+        GD.Print("left click on mob signal");
+        _selectedMob = mob;
+    }
+
+    public void RightCLickOnMob(KinematicBody2D mob){
+        GD.Print("right click on mob signal");
+    }
 }
