@@ -6,10 +6,10 @@ public class Game : Node
 
     public override void _Ready()
     {
-        GetNode("Mob/UI/SelectionMarker").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob/UI/SelectionMarker").Connect("RightClick", this, nameof(RightCLickOnMob));
-        GetNode("Mob2/UI/SelectionMarker").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob2/UI/SelectionMarker").Connect("RightClick", this, nameof(RightCLickOnMob));
+        GetNode("Mob/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        GetNode("Mob2/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
     }
 
     public void LeftClickOnMob(KinematicBody2D mob){

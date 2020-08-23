@@ -1,6 +1,6 @@
 using Godot;
 
-public class SelectionMarker : Area2D
+public class SelectionArea : Area2D
 {
     [Signal]
     delegate void LeftClick(KinematicBody2D owner);
@@ -21,10 +21,10 @@ public class SelectionMarker : Area2D
         switch (inputEventMouseButton.ButtonIndex)
         {
             case 1:
-                EmitSignal("LeftClick", GetParentMob());
+                EmitSignal(nameof(LeftClick), GetParentMob());
                 break;
             case 2:
-                EmitSignal("RightClick", GetParentMob());
+                EmitSignal(nameof(RightClick), GetParentMob());
                 break;
         }
     }
