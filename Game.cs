@@ -15,6 +15,7 @@ public class Game : Node
     public void LeftClickOnMob(KinematicBody2D mob){
         GD.Print("left click on mob signal");
         _selectedMob = mob;
+        GetNode<SelectionMarker>("UI/SelectionMarker").Mob = mob;
     }
 
     public void RightCLickOnMob(KinematicBody2D mob){
