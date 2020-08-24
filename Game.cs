@@ -2,7 +2,7 @@ using Godot;
 
 public class Game : Node
 {
-    private KinematicBody2D _selectedMob;
+    private Mob _selectedMob;
 
     public override void _Ready()
     {
@@ -12,13 +12,15 @@ public class Game : Node
         GetNode("Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
     }
 
-    public void LeftClickOnMob(KinematicBody2D mob){
-        GD.Print("left click on mob signal");
+    public void LeftClickOnMob(Mob mob){
         _selectedMob = mob;
+        GD.Print("adfdaf");
         GetNode<SelectionMarker>("UI/SelectionMarker").Mob = mob;
     }
 
-    public void RightCLickOnMob(KinematicBody2D mob){
-        GD.Print("right click on mob signal");
+    public void RightCLickOnMob(Mob mob){
+        GD.Print("adfasffsafas");
+        if (_selectedMob == null || _selectedMob == mob) {return;}
+        //_selectedMob.move_to(mob);
     }
 }

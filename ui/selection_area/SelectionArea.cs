@@ -3,10 +3,10 @@ using Godot;
 public class SelectionArea : Area2D
 {
     [Signal]
-    delegate void LeftClick(KinematicBody2D owner);
+    delegate void LeftClick(Mob owner);
 
     [Signal]
-    delegate void RightClick(KinematicBody2D owner);
+    delegate void RightClick(Mob owner);
     
     public override void _Ready(){
         Connect("input_event", this, nameof(_onSelectionMarkerInputEvent));
@@ -31,6 +31,6 @@ public class SelectionArea : Area2D
 
     private Node GetParentMob()
     {
-        return GetParent().GetParent(); // get UI grouping node -> get Mob
+        return GetParent<Node2D>().GetParent<Mob>(); // get UI grouping node -> get Mob
     }
 }

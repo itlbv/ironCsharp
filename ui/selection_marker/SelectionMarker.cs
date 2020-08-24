@@ -2,7 +2,7 @@ using Godot;
 
 public class SelectionMarker : Node2D
 {
-    public KinematicBody2D Mob;
+    public Mob Mob;
 
     public override void _Process(float delta)
     {
