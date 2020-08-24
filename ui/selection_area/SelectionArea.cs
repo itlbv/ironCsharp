@@ -29,7 +29,7 @@ public class SelectionArea : Area2D
         }
     }
 
-    private Node GetParentMob()
+    private Mob GetParentMob()
     {
         return GetParent<Node2D>().GetParent<Mob>(); // get UI grouping node -> get Mob
     }

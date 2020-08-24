@@ -12,15 +12,13 @@ public class Game : Node
         GetNode("Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
     }
 
-    public void LeftClickOnMob(Mob mob){
-        _selectedMob = mob;
-        GD.Print("adfdaf");
-        GetNode<SelectionMarker>("UI/SelectionMarker").Mob = mob;
+    public void LeftClickOnMob(Mob mobClicked){
+        _selectedMob = mobClicked;
+        GetNode<SelectionMarker>("UI/SelectionMarker").Mob = mobClicked;
     }
 
-    public void RightCLickOnMob(Mob mob){
-        GD.Print("adfasffsafas");
-        if (_selectedMob == null || _selectedMob == mob) {return;}
-        //_selectedMob.move_to(mob);
+    public void RightCLickOnMob(Mob mobClicked){
+        if (_selectedMob == null || _selectedMob == mobClicked) {return;}
+        _selectedMob.MoveToMob(mobClicked);
     }
 }
