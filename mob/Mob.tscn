@@ -1,8 +1,9 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://mob/Mob.cs" type="Script" id=1]
 [ext_resource path="res://player/human_naked.png" type="Texture" id=2]
 [ext_resource path="res://ui/selection_area/SelectionArea.tscn" type="PackedScene" id=3]
+[ext_resource path="res://mob/actions/Actions.cs" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.72778
@@ -292,6 +293,9 @@ active = true
 parameters/playback = SubResource( 23 )
 parameters/idle/blend_position = Vector2( 0, 0 )
 parameters/walk/blend_position = Vector2( 0, 0 )
+
+[node name="Actions" type="Node2D" parent="."]
+script = ExtResource( 4 )
 
 [node name="UI" type="Node2D" parent="."]
 
