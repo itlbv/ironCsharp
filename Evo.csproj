@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="mob\actions\AbstractAction.cs" />
     <Compile Include="mob\actions\Actions.cs" />
     <Compile Include="mob\actions\Move.cs" />
     <Compile Include="mob\Mob.cs" />
