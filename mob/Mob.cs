@@ -4,7 +4,7 @@ public class Mob : KinematicBody2D
 {
     public const int SPEED = 100;
 
-    Actions Actions;
+    public Actions Actions; // TODO temporarily public for setting animation in Fight action
 
     public override void _Ready()
     {

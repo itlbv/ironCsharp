@@ -6,8 +6,8 @@ public class Actions : Node2D
     private Mob OwnerMob;
     private Stack<AbstractAction> ActionsStack;
 
-    private AnimationTree AnimationTree;
-    private AnimationNodeStateMachinePlayback AnimationState;
+    public AnimationTree AnimationTree;                        // TODO temporarily public for setting animation in Fight action
+    public AnimationNodeStateMachinePlayback AnimationState;   // TODO temporarily public for setting animation in Fight action
 
     public override void _Ready()
     {
@@ -27,7 +27,7 @@ public class Actions : Node2D
         }
 
         if (ActionsStack.Count == 0){return;}
-        
+
         ActionsStack.Peek().Do();
     }
 
@@ -62,6 +62,8 @@ public class Actions : Node2D
                 {
                     AnimationTree.Set("parameters/idle/blend_position", currentVelocity);
                     AnimationTree.Set("parameters/walk/blend_position", currentVelocity);
+                    AnimationTree.Set("parameters/hurt/blend_position", currentVelocity);
+                    AnimationTree.Set("parameters/hit/blend_position", currentVelocity);
                     AnimationState.Travel("walk");
                 } 
                 else 

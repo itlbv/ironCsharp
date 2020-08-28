@@ -10,6 +10,6 @@ public class Fight : AbstractAction
 
     public override void Do()
     {
-        //OwnerMob.Actions.AnimationState.Travel("hit");
+        OwnerMob.Actions.AnimationState.Travel("hit");
     }
 }
