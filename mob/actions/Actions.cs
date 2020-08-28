@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 public class Actions : Node2D
 {
-    private Stack<AbstractAction> ActionsStack = new Stack<AbstractAction>();
     private Mob OwnerMob;
+    private Stack<AbstractAction> ActionsStack;
 
     public override void _Ready()
     {
         OwnerMob = (Mob) Owner;
+        ActionsStack = new Stack<AbstractAction>();
     }
 
     public void Do()
@@ -19,7 +20,7 @@ public class Actions : Node2D
 
     public void AddMoveToMob(Mob targetMob)
     {
-        var move = new Move(OwnerMob, targetMob);
+        Move move = new Move(OwnerMob, targetMob);
         AddChild(move);
         ActionsStack.Push(move);
     }

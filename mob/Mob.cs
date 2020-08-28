@@ -2,6 +2,8 @@ using Godot;
 
 public class Mob : KinematicBody2D
 {
+    public const int SPEED = 100;
+
     Actions Actions;
 
     public override void _Ready()
@@ -9,9 +11,18 @@ public class Mob : KinematicBody2D
         Actions = GetNode<Actions>("Actions");
     }
 
+    public override void _PhysicsProcess(float delta)
+    {
+        Actions.Do();
+    }
+
     public void MoveToMob(Mob targetMob)
     {
         Actions.AddMoveToMob(targetMob);
-        Actions.Do();
+    }
+
+    public void Log(string message)
+    {
+        GD.Print(Name + ": " + message);
     }
 }
