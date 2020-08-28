@@ -14,13 +14,22 @@ public class Move : AbstractAction
     {
         OwnerMob = ownerMob;
         TargetMob = targetMob;
-        VelocityVector = Vector2.Zero;
         NavigationMap = OwnerMob.GetNode<Navigation2D>("/root/Game/NavigationMap");
         DebugPathLine = OwnerMob.GetNode<Line2D>("/root/Game/UI/DebugPathLine");
     }
 
     public override void Do()
     {
+        SetVelocityVector();
+        OwnerMob.MoveAndSlide(VelocityVector);
+    }
+
+    private void SetVelocityVector()
+    {
+        VelocityVector = Vector2.Zero;
+
+        if (CloseToPosition(TargetMob.Position)) {return;}
+
         UsePath = true;
         if (UsePath)
         {
@@ -28,10 +37,10 @@ public class Move : AbstractAction
         }
         else
         {
-            VelocityVector = Vector2.Zero;
+            return;
         }
 
-        OwnerMob.MoveAndSlide(VelocityVector.Normalized() * Mob.SPEED);
+        VelocityVector = VelocityVector.Normalized() * Mob.SPEED;
     }
 
     private Vector2 GetPathVelocityVector()
@@ -48,7 +57,7 @@ public class Move : AbstractAction
 
         while (Path.Count > 0)
         {
-            if (OwnerMob.Position.DistanceTo(Path[0]) < 5)
+            if (CloseToPosition(Path[0]))
             {
                 Path.RemoveAt(0);
                 continue;
@@ -64,5 +73,10 @@ public class Move : AbstractAction
         var pathArray = NavigationMap.GetSimplePath(OwnerMob.Position, TargetMob.Position, false);
         Path = new List<Vector2>(pathArray);
         DebugPathLine.Points = pathArray;
+    }
+
+    private bool CloseToPosition(Vector2 destination)
+    {
+        return OwnerMob.Position.DistanceTo(destination) < 10;
     }
 }
