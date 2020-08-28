@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 public class Move : AbstractAction
 {
-    Navigation2D NavigationMap;
+    public Vector2 VelocityVector;
 
-    Vector2 VelocityVector;
-    List<Vector2> Path;
-    bool UsePath;
-    Line2D DebugPathLine;
+    private Navigation2D NavigationMap;
+    private List<Vector2> Path;
+    private bool UsePath;
+    private Line2D DebugPathLine;
 
     public Move(Mob ownerMob, Mob targetMob) : base(ownerMob, targetMob)
     {
         OwnerMob = ownerMob;
         TargetMob = targetMob;
+        VelocityVector = Vector2.Zero;
         NavigationMap = OwnerMob.GetNode<Navigation2D>("/root/Game/NavigationMap");
         DebugPathLine = OwnerMob.GetNode<Line2D>("/root/Game/UI/DebugPathLine");
-        VelocityVector = Vector2.Zero;
     }
 
     public override void Do()

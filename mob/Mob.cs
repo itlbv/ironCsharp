@@ -11,6 +11,11 @@ public class Mob : KinematicBody2D
         Actions = GetNode<Actions>("Actions");
     }
 
+    public override void _Process(float delta)
+    {
+        Actions.SetAnimation();
+    }
+
     public override void _PhysicsProcess(float delta)
     {
         Actions.Do();
