@@ -2,13 +2,20 @@ using Godot;
 
 public class Move : AbstractAction
 {
-    public override void _Ready()
+    Navigation2D NavigationMap;
+    Line2D DebugPathLine;
+
+    public Move(Mob ownerMob, Mob targetMob) : base(ownerMob, targetMob)
     {
-        GD.Print("Move created");
+        OwnerMob = ownerMob;
+        TargetMob = targetMob;
+        NavigationMap = OwnerMob.GetNode<Navigation2D>("/root/Game/NavigationMap");
+        DebugPathLine = OwnerMob.GetNode<Line2D>("/root/Game/UI/DebugPathLine");
     }
 
     public override void Do()
     {
-        GD.Print("do move");
+        Vector2[] _path = NavigationMap.GetSimplePath(OwnerMob.Position, TargetMob.Position, false);
+        DebugPathLine.Points = _path;
     }
 }

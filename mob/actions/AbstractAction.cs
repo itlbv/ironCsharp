@@ -1,11 +1,14 @@
 using Godot;
-using System;
 
 public abstract class AbstractAction : Node2D
 {
-    public override void _Ready()
+    public Mob OwnerMob;
+    public Mob TargetMob;
+
+    public AbstractAction(Mob ownerMob, Mob targetMob)
     {
-        
+        OwnerMob = ownerMob;
+        TargetMob = targetMob;
     }
 
     public abstract void Do();
