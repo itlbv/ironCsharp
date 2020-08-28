@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://mob/Mob.cs" type="Script" id=1]
 [ext_resource path="res://player/human_naked.png" type="Texture" id=2]
@@ -323,6 +323,52 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -16 ), Vector2( 0, -15 ), Vector2( 0, -16 ), Vector2( 0, -15 ) ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "hit_left"
+
+[sub_resource type="AnimationNodeAnimation" id=33]
+animation = "hit_right"
+
+[sub_resource type="AnimationNodeAnimation" id=34]
+animation = "hit_down"
+
+[sub_resource type="AnimationNodeAnimation" id=35]
+animation = "hit_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=36]
+blend_point_0/node = SubResource( 32 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 33 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 34 )
+blend_point_2/pos = Vector2( 0, 0.9 )
+blend_point_3/node = SubResource( 35 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=37]
+animation = "hurt_left"
+
+[sub_resource type="AnimationNodeAnimation" id=38]
+animation = "hurt_right"
+
+[sub_resource type="AnimationNodeAnimation" id=39]
+animation = "hurt_down"
+
+[sub_resource type="AnimationNodeAnimation" id=40]
+animation = "hurt_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=41]
+blend_point_0/node = SubResource( 37 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 38 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 39 )
+blend_point_2/pos = Vector2( 0, 0.9 )
+blend_point_3/node = SubResource( 40 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
 [sub_resource type="AnimationNodeAnimation" id=10]
 animation = "idle_left"
 
@@ -375,12 +421,34 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=21]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=46]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=49]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=50]
+
 [sub_resource type="AnimationNodeStateMachine" id=22]
+states/hit/node = SubResource( 36 )
+states/hit/position = Vector2( 629, 158 )
+states/hurt/node = SubResource( 41 )
+states/hurt/position = Vector2( 471, 218 )
 states/idle/node = SubResource( 14 )
 states/idle/position = Vector2( 355, 96 )
 states/walk/node = SubResource( 19 )
 states/walk/position = Vector2( 532, 55 )
-transitions = [ "idle", "walk", SubResource( 20 ), "walk", "idle", SubResource( 21 ) ]
+transitions = [ "idle", "walk", SubResource( 20 ), "walk", "idle", SubResource( 21 ), "idle", "hit", SubResource( 42 ), "hit", "idle", SubResource( 43 ), "idle", "hurt", SubResource( 44 ), "hurt", "idle", SubResource( 45 ), "walk", "hit", SubResource( 46 ), "hit", "walk", SubResource( 47 ), "walk", "hurt", SubResource( 48 ), "hurt", "walk", SubResource( 49 ), "hit", "hurt", SubResource( 50 ) ]
 start_node = "idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=23]
@@ -402,10 +470,10 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Animation"]
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, -15 )
+offset = Vector2( 0, -16 )
 vframes = 4
 hframes = 10
-frame = 30
+frame = 20
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animation"]
 anims/hit_down = SubResource( 24 )
@@ -428,7 +496,10 @@ anims/walk_up = SubResource( 9 )
 [node name="AnimationTree" type="AnimationTree" parent="Animation"]
 tree_root = SubResource( 22 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/playback = SubResource( 23 )
+parameters/hit/blend_position = Vector2( 0, 0 )
+parameters/hurt/blend_position = Vector2( 0, 0 )
 parameters/idle/blend_position = Vector2( 0, 0 )
 parameters/walk/blend_position = Vector2( 0, 0 )
 
