@@ -10,6 +10,14 @@ public class Game : Node
         GetNode("Mob/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
         GetNode("Mob2/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
         GetNode("Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        GetNode("Mob3/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob3/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        GetNode("Mob4/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob4/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        GetNode("Mob5/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob5/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        GetNode("Mob6/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("Mob6/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
     }
 
     public void LeftClickOnMob(Mob mobClicked){
