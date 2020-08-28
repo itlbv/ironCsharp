@@ -28,7 +28,12 @@ public class Move : AbstractAction
     {
         VelocityVector = Vector2.Zero;
 
-        if (CloseToPosition(TargetMob.Position)) {return;}
+        if (CloseToPosition(TargetMob.Position)) 
+        {
+            Finished = true;
+            OwnerMob.Log("finished moving to " + TargetMob.Name);
+            return;
+        }
 
         UsePath = true;
         if (UsePath)

@@ -20,11 +20,30 @@ public class Actions : Node2D
     public void Do()
     {
         if (ActionsStack.Count == 0){return;}
+
+        if (ActionsStack.Peek().Finished)
+        {
+            ActionsStack.Pop();
+        }
+
+        if (ActionsStack.Count == 0){return;}
+        
         ActionsStack.Peek().Do();
     }
 
     public void AddMoveToMob(Mob targetMob)
     {
+        Move move = new Move(OwnerMob, targetMob);
+        AddChild(move);
+        ActionsStack.Push(move);
+    }
+
+    public void AddMoveToAndFightMob(Mob targetMob)
+    {
+        ActionsStack.Clear();
+        Fight fight = new Fight(OwnerMob, targetMob);
+        AddChild(fight);
+        ActionsStack.Push(fight);
         Move move = new Move(OwnerMob, targetMob);
         AddChild(move);
         ActionsStack.Push(move);

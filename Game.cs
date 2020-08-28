@@ -27,6 +27,6 @@ public class Game : Node
 
     public void RightCLickOnMob(Mob mobClicked){
         if (_selectedMob == null || _selectedMob == mobClicked) {return;}
-        _selectedMob.MoveToMob(mobClicked);
+        _selectedMob.AttackMob(mobClicked);
     }
 }
