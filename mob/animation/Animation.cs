@@ -38,25 +38,14 @@ public class Animation : Node2D
             if (currentAction is Move)
             {
                 Move moveAction = currentAction as Move;
-                Vector2 currentVelocity = moveAction.VelocityVector;
-                if (currentVelocity.Length() > 0)
-                {
-                    OwnerMob.Log("moving");
-                    AnimationTree.Set("parameters/idle/blend_position", currentVelocity);
-                    AnimationTree.Set("parameters/walk/blend_position", currentVelocity);
-                    AnimationTree.Set("parameters/hurt/blend_position", currentVelocity);
-                    AnimationTree.Set("parameters/hit/blend_position", currentVelocity);
-                    AnimationState.Travel("walk");
-                } 
-                else 
-                {
-                    AnimationState.Travel("idle");
-                }
+                SetAnimationDirection(moveAction.VelocityVector);
+                AnimationState.Travel("walk");
             }
     }
 
-    public void AnimateHit()
+    public void AnimateHit(Vector2 directionToTarget)
     {
+        SetAnimationDirection(directionToTarget);
         AnimationState.Travel("hit");
     }
 
@@ -65,5 +54,13 @@ public class Animation : Node2D
         HurtAnimationDelayTimer.Start();
         await ToSignal(HurtAnimationDelayTimer, "timeout");
         AnimationState.Travel("hurt");
+    }
+
+    private void SetAnimationDirection(Vector2 direction)
+    {
+        AnimationTree.Set("parameters/idle/blend_position", direction);
+        AnimationTree.Set("parameters/walk/blend_position", direction);
+        AnimationTree.Set("parameters/hurt/blend_position", direction);
+        AnimationTree.Set("parameters/hit/blend_position", direction);
     }
 }

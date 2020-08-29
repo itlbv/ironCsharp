@@ -14,4 +14,9 @@ public abstract class AbstractAction : Node2D
     }
 
     public abstract void Do();
+
+    public Vector2 GetDirectionToTarget()
+    {
+        return OwnerMob.Position.DirectionTo(TargetMob.Position);
+    }
 }
