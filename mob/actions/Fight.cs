@@ -30,7 +30,7 @@ public class Fight : AbstractAction
     private void AttackTimerTimeout()
     {
         OwnerMob.Log("hit " + TargetMob.Name);
-        OwnerMob.Actions.AnimationState.Travel("hit");
+        OwnerMob.Animation.AnimateHit();
         SetTimeToNextAttack();
         TargetMob.Defend();
     }

@@ -4,21 +4,13 @@ public class Mob : KinematicBody2D
 {
     public const int SPEED = 100;
 
-    public Actions Actions; // TODO temporarily public for setting animation in Fight action
-
+    public Actions Actions;
+    public Animation Animation;
+    
     public override void _Ready()
     {
         Actions = GetNode<Actions>("Actions");
-    }
-
-    public override void _Process(float delta)
-    {
-        Actions.SetAnimation();
-    }
-
-    public override void _PhysicsProcess(float delta)
-    {
-        Actions.Do();
+        Animation = GetNode<Animation>("Animation");
     }
 
     public void MoveToMob(Mob targetMob)
@@ -34,6 +26,7 @@ public class Mob : KinematicBody2D
     public void Defend()
     {
         Log("defending");
+        Animation.AnimateHurt();
     }
 
     public void Log(string message)

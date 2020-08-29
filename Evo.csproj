@@ -62,6 +62,7 @@
     <Compile Include="mob\actions\Actions.cs" />
     <Compile Include="mob\actions\Fight.cs" />
     <Compile Include="mob\actions\Move.cs" />
+    <Compile Include="mob\animation\Animation.cs" />
     <Compile Include="mob\Mob.cs" />
     <Compile Include="player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,34 +1,30 @@
 using Godot;
 using System.Collections.Generic;
+using System;
 
 public class Actions : Node2D
 {
     private Mob OwnerMob;
-    private Stack<AbstractAction> ActionsStack;
 
-    public AnimationTree AnimationTree;                        // TODO temporarily public for setting animation in Fight action
-    public AnimationNodeStateMachinePlayback AnimationState;   // TODO temporarily public for setting animation in Fight action
+    private Stack<AbstractAction> ActionsStack;
 
     public override void _Ready()
     {
         OwnerMob = (Mob) Owner;
         ActionsStack = new Stack<AbstractAction>();
-        AnimationTree = OwnerMob.GetNode<AnimationTree>("Animation/AnimationTree");
-        AnimationState = AnimationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
     }
 
-    public void Do()
+    public override void _PhysicsProcess(float delta)
     {
-        if (ActionsStack.Count == 0){return;}
+        if (IsIdle()){return;}
 
-        if (ActionsStack.Peek().Finished)
+        if (GetCurrentAction().Finished)
         {
             ActionsStack.Pop();
+            if (IsIdle()){return;}
         }
 
-        if (ActionsStack.Count == 0){return;}
-
-        ActionsStack.Peek().Do();
+        GetCurrentAction().Do();
     }
 
     public void AddMoveToMob(Mob targetMob)
@@ -49,28 +45,18 @@ public class Actions : Node2D
         ActionsStack.Push(move);
     }
 
-    public void SetAnimation()
+    public AbstractAction GetCurrentAction()
     {
-        if (ActionsStack.Count > 0)
+        if (IsIdle()) 
         {
-            AbstractAction currentAction = ActionsStack.Peek();
-            if (currentAction is Move)
-            {
-                Move moveAction = currentAction as Move;
-                Vector2 currentVelocity = moveAction.VelocityVector;
-                if (currentVelocity.Length() > 0)
-                {
-                    AnimationTree.Set("parameters/idle/blend_position", currentVelocity);
-                    AnimationTree.Set("parameters/walk/blend_position", currentVelocity);
-                    AnimationTree.Set("parameters/hurt/blend_position", currentVelocity);
-                    AnimationTree.Set("parameters/hit/blend_position", currentVelocity);
-                    AnimationState.Travel("walk");
-                } 
-                else 
-                {
-                    AnimationState.Travel("idle");
-                }
-            }
+            OwnerMob.Log("ERROR: ActionsStack is empty");
+            throw new InvalidOperationException();
         }
+        return ActionsStack.Peek();
+    }
+    
+    public bool IsIdle()
+    {
+        return ActionsStack.Count == 0;
     }
 }
