@@ -31,6 +31,11 @@ public class Mob : KinematicBody2D
         Actions.AddMoveToAndFightMob(targetMob);
     }
 
+    public void Defend()
+    {
+        Log("defending");
+    }
+
     public void Log(string message)
     {
         GD.Print(Name + ": " + message);
