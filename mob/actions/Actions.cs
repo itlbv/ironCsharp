@@ -1,6 +1,6 @@
 using Godot;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 public class Actions : Node2D
 {
@@ -29,6 +29,7 @@ public class Actions : Node2D
 
     public void AddMoveToMob(Mob targetMob)
     {
+        ActionsStack.Clear();
         Move move = new Move(OwnerMob, targetMob);
         AddChild(move);
         ActionsStack.Push(move);
@@ -43,6 +44,17 @@ public class Actions : Node2D
         Move move = new Move(OwnerMob, targetMob);
         AddChild(move);
         ActionsStack.Push(move);
+    }
+
+    public void InterruptCurrentAttack()
+    {
+        if (IsIdle()) {return;}
+
+        if (GetCurrentAction() is Fight)
+        {
+            Fight fightAction = GetCurrentAction() as Fight;
+            fightAction.SetTimeToNextAttack();            
+        }
     }
 
     public AbstractAction GetCurrentAction()
