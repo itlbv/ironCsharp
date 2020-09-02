@@ -21,6 +21,7 @@ public class Animation : Node2D
         AnimationState = AnimationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
 
         HurtAnimationDelayTimer = new Timer();
+        HurtAnimationDelayTimer.Name = "HurtAnimationDelayTimer";
         HurtAnimationDelayTimer.WaitTime = 0.2f;
         AddChild(HurtAnimationDelayTimer);
     }
@@ -56,11 +57,20 @@ public class Animation : Node2D
         AnimationState.Travel("hurt");
     }
 
+    public async void AnimateDie()
+    {
+        HurtAnimationDelayTimer.Start();
+        await ToSignal(HurtAnimationDelayTimer, "timeout");
+        OwnerMob.Log("die animation");
+        AnimationState.Travel("die");
+    }
+
     private void SetAnimationDirection(Vector2 direction)
     {
         AnimationTree.Set("parameters/idle/blend_position", direction);
         AnimationTree.Set("parameters/walk/blend_position", direction);
         AnimationTree.Set("parameters/hurt/blend_position", direction);
         AnimationTree.Set("parameters/hit/blend_position", direction);
+        AnimationTree.Set("parameters/die/blend_position", direction);
     }
 }

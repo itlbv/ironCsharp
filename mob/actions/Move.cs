@@ -10,7 +10,7 @@ public class Move : AbstractAction
     private bool UsePath;
     private Line2D DebugPathLine;
 
-    public Move(Mob ownerMob, Mob targetMob) : base(ownerMob, targetMob)
+    public Move(Mob ownerMob, Mob targetMob) : base(ownerMob, targetMob, "Move")
     {
         OwnerMob = ownerMob;
         TargetMob = targetMob;
@@ -20,6 +20,12 @@ public class Move : AbstractAction
 
     public override void Do()
     {
+        if (CloseToPosition(TargetMob.Position)) 
+        {
+            Finish();
+            return;
+        }
+        
         SetVelocityVector();
         OwnerMob.MoveAndSlide(VelocityVector);
     }
@@ -27,13 +33,6 @@ public class Move : AbstractAction
     private void SetVelocityVector()
     {
         VelocityVector = Vector2.Zero;
-
-        if (CloseToPosition(TargetMob.Position)) 
-        {
-            Finished = true;
-            OwnerMob.Log("finished moving to " + TargetMob.Name);
-            return;
-        }
 
         UsePath = true;
         if (UsePath)
@@ -83,5 +82,11 @@ public class Move : AbstractAction
     private bool CloseToPosition(Vector2 destination)
     {
         return OwnerMob.Position.DistanceTo(destination) < 10;
+    }
+
+    public override void Finish()
+    {
+        Finished = true;
+        OwnerMob.Log("finished moving to " + TargetMob.Name);
     }
 }

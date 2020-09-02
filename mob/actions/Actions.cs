@@ -20,6 +20,7 @@ public class Actions : Node2D
 
         if (GetCurrentAction().Finished)
         {
+            GetCurrentAction().QueueFree();
             ActionsStack.Pop();
             if (IsIdle()){return;}
         }
@@ -29,7 +30,7 @@ public class Actions : Node2D
 
     public void AddMoveToMob(Mob targetMob)
     {
-        ActionsStack.Clear();
+        Clear();
         Move move = new Move(OwnerMob, targetMob);
         AddChild(move);
         ActionsStack.Push(move);
@@ -37,7 +38,7 @@ public class Actions : Node2D
 
     public void AddMoveToAndFightMob(Mob targetMob)
     {
-        ActionsStack.Clear();
+        Clear();
         Fight fight = new Fight(OwnerMob, targetMob);
         AddChild(fight);
         ActionsStack.Push(fight);
@@ -55,6 +56,15 @@ public class Actions : Node2D
             Fight fightAction = GetCurrentAction() as Fight;
             fightAction.SetTimeToNextAttack();            
         }
+    }
+
+    public void Clear()
+    {
+        foreach (AbstractAction action in ActionsStack)
+        {
+            action.QueueFree();
+        }
+        ActionsStack.Clear();
     }
 
     public AbstractAction GetCurrentAction()

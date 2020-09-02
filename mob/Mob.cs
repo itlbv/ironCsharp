@@ -3,7 +3,7 @@ using Godot;
 public class Mob : KinematicBody2D
 {
     public const int SPEED = 100;
-    public int hp = 500;
+    private int HP = 4;
 
     public Actions Actions;
     public Animation Animation;
@@ -26,9 +26,31 @@ public class Mob : KinematicBody2D
 
     public void Defend()
     {
-        Log("defending");
+        HP--;
+        if (HP <= 0)
+        {
+            Die();
+            return;
+        }
         Animation.AnimateHurt();
         Actions.InterruptCurrentAttack();
+    }
+
+    private void Die()
+    {
+        Log("is dead");
+        Animation.AnimateDie();
+        
+        Actions.Clear();
+        Actions.QueueFree();
+
+        GetNode("UI").QueueFree();
+        GetNode("BodyCollisionShape").QueueFree();
+    }
+
+    public bool IsDead()
+    {
+        return HP <= 0;
     }
 
     public void Log(string message)

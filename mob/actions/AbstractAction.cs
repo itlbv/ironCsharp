@@ -7,10 +7,11 @@ public abstract class AbstractAction : Node2D
 
     public bool Finished;
 
-    public AbstractAction(Mob ownerMob, Mob targetMob)
+    public AbstractAction(Mob ownerMob, Mob targetMob, string actionName)
     {
         OwnerMob = ownerMob;
         TargetMob = targetMob;
+        Name = actionName;
     }
 
     public abstract void Do();
@@ -19,4 +20,6 @@ public abstract class AbstractAction : Node2D
     {
         return OwnerMob.Position.DirectionTo(TargetMob.Position);
     }
+
+    public abstract void Finish();
 }

@@ -1,5 +1,4 @@
 using Godot;
-using System.Diagnostics;
 
 public class Fight : AbstractAction
 {
@@ -8,18 +7,25 @@ public class Fight : AbstractAction
     private Timer AttackTimer;
     RandomNumberGenerator RandomNumber = new RandomNumberGenerator();
 
-    public Fight(Mob ownerMob, Mob targetMob) : base(ownerMob, targetMob)
+    public Fight(Mob ownerMob, Mob targetMob) : base(ownerMob, targetMob, "Fight")
     {
         OwnerMob = ownerMob;
         TargetMob = targetMob;
         
         AttackTimer = new Timer();
+        AttackTimer.Name = "AttackTimer";
         AttackTimer.Connect("timeout", this, nameof(AttackTimerTimeout));
         AddChild(AttackTimer);
     }
 
     public override void Do()
     {
+        if (TargetMob.IsDead())
+        {
+            Finish();
+            return;
+        }
+
         if (AttackTimer.IsStopped())
         {
             PerformAttack();
@@ -28,7 +34,6 @@ public class Fight : AbstractAction
 
     private void PerformAttack()
     {
-        //OwnerMob.Log("hit " + TargetMob.Name);
         OwnerMob.Animation.AnimateHit(GetDirectionToTarget());
         TargetMob.Defend();
 
@@ -44,5 +49,11 @@ public class Fight : AbstractAction
     private void AttackTimerTimeout()
     {
         PerformAttack();
+    }
+
+    public override void Finish()
+    {
+        Finished = true;
+        AttackTimer.QueueFree();
     }
 }
