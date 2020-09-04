@@ -3,7 +3,7 @@ using Godot;
 public class Mob : KinematicBody2D
 {
     public const int SPEED = 100;
-    private int HP = 4;
+    private int HP = 40;
 
     public Actions Actions;
     public Animation Animation;

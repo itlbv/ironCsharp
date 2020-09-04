@@ -36,7 +36,7 @@ public class Move : AbstractAction
         
         Vector2 directionToTarget;
 
-        UsePath = true;
+        UsePath = false;
         if (UsePath)
         {
             directionToTarget = GetPathDirection();
