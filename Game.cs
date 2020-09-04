@@ -2,7 +2,7 @@ using Godot;
 
 public class Game : Node
 {
-    private Mob _selectedMob;
+    private Mob SelectedMob;
 
     public override void _Ready()
     {
@@ -21,12 +21,19 @@ public class Game : Node
     }
 
     public void LeftClickOnMob(Mob mobClicked){
-        _selectedMob = mobClicked;
+        SelectedMob = mobClicked;
         GetNode<SelectionMarker>("UI/SelectionMarker").Mob = mobClicked;
     }
 
-    public void RightCLickOnMob(Mob mobClicked){
-        if (_selectedMob == null || _selectedMob == mobClicked) {return;}
-        _selectedMob.AttackMob(mobClicked);
+    public void RightCLickOnMob(Mob mobClicked)
+    {
+        if (SelectedMob == null || 
+        SelectedMob == mobClicked || 
+        SelectedMob.IsDead()) 
+        {
+            return;
+        }
+
+        SelectedMob.AttackMob(mobClicked);
     }
 }

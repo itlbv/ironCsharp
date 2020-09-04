@@ -16,11 +16,10 @@ public class SelectionArea : Area2D
     {
         if (!inputEvent.IsPressed()){return;}
         if (inputEvent.GetType() != typeof(InputEventMouseButton)){return;}
-
-        Mob ownerMob = GetParentMob();
-        if (ownerMob is null) {return;}
         
         InputEventMouseButton inputEventMouseButton = inputEvent as InputEventMouseButton;
+        
+        Mob ownerMob = GetParentMob();
         
         switch (inputEventMouseButton.ButtonIndex)
         {
