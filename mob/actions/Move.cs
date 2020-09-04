@@ -33,21 +33,23 @@ public class Move : AbstractAction
     private void SetVelocityVector()
     {
         VelocityVector = Vector2.Zero;
+        
+        Vector2 directionToTarget;
 
         UsePath = true;
         if (UsePath)
         {
-            VelocityVector = GetPathVelocityVector();
+            directionToTarget = GetPathDirection();
         }
         else
         {
-            return;
+            directionToTarget = OwnerMob.Position.DirectionTo(TargetMob.Position);
         }
 
-        VelocityVector = VelocityVector.Normalized() * Mob.SPEED;
+        VelocityVector = directionToTarget.Normalized() * Mob.SPEED;
     }
 
-    private Vector2 GetPathVelocityVector()
+    private Vector2 GetPathDirection()
     {
         if (Path == null)
         {
