@@ -44,7 +44,6 @@ public class Mob : KinematicBody2D
         Actions.Clear();
         Actions.QueueFree();
 
-        GetNode("UI").QueueFree();
         GetNode("BodyCollisionShape").QueueFree();
     }
 

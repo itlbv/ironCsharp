@@ -12,19 +12,23 @@ public class SelectionArea : Area2D
         Connect("input_event", this, nameof(_onSelectionMarkerInputEvent));
     } 
     
-    public void _onSelectionMarkerInputEvent(Viewport viewport, InputEventMouse inputEvent, int shapeIdx){
+    public void _onSelectionMarkerInputEvent(Viewport viewport, InputEventMouse inputEvent, int shapeIdx)
+    {
         if (!inputEvent.IsPressed()){return;}
         if (inputEvent.GetType() != typeof(InputEventMouseButton)){return;}
+
+        Mob ownerMob = GetParentMob();
+        if (ownerMob is null) {return;}
         
         InputEventMouseButton inputEventMouseButton = inputEvent as InputEventMouseButton;
         
         switch (inputEventMouseButton.ButtonIndex)
         {
             case 1:
-                EmitSignal(nameof(LeftClick), GetParentMob());
+                EmitSignal(nameof(LeftClick), ownerMob);
                 break;
             case 2:
-                EmitSignal(nameof(RightClick), GetParentMob());
+                EmitSignal(nameof(RightClick), ownerMob);
                 break;
         }
     }
