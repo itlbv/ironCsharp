@@ -3,7 +3,7 @@ using Godot;
 public class Mob : KinematicBody2D
 {
     public const int SPEED = 100;
-    private int HP = 40;
+    private int HP = 4;
 
     public Actions Actions;
     public Animation Animation;
@@ -12,6 +12,7 @@ public class Mob : KinematicBody2D
     {
         Actions = GetNode<Actions>("Actions");
         Animation = GetNode<Animation>("Animation");
+        GetNode<Label>("UI/LabelName").Text = Name;
     }
 
     public void MoveToMob(Mob targetMob)
@@ -42,9 +43,10 @@ public class Mob : KinematicBody2D
         Animation.AnimateDie();
         
         Actions.Clear();
-        Actions.QueueFree();
+        //Actions.QueueFree();
 
         GetNode("BodyCollisionShape").QueueFree();
+        //SetProcess(false);
     }
 
     public bool IsDead()

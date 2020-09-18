@@ -1,23 +1,69 @@
 using Godot;
+using System.Collections.Generic;
 
 public class Game : Node
 {
     private Mob SelectedMob;
+    private List<Mob> Mobs = new List<Mob>();
 
     public override void _Ready()
     {
+        CreateMobs();
+    }
+
+    public void CreateMobs()
+    {
         GetNode("Mob/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
         GetNode("Mob/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        Mobs.Add(GetNode<Mob>("Mob"));
+        
         GetNode("Mob2/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
         GetNode("Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        Mobs.Add(GetNode<Mob>("Mob2"));
+        
+        /*
         GetNode("Mob3/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
         GetNode("Mob3/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        GetNode("Mob4/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob4/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        GetNode("Mob5/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob5/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        GetNode("Mob6/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob6/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        Mobs.Add(GetNode<Mob>("Mob3"));
+        */
+    }
+
+    public override void _Process(float delta)
+    {
+        base._Process(delta);
+
+        if (Mobs.Count < 2) {return;}
+        foreach (Mob mob in Mobs)
+        {
+            Mob closestMob = null;
+            if (mob.Actions.IsIdle())
+            {
+                float distanceToClosestMob = float.PositiveInfinity;
+                foreach (Mob mobEnemy in Mobs)
+                {
+                    if (mobEnemy == mob) {continue;}
+                    if (mobEnemy.IsDead()) {continue;}
+                    if (mob.Position.DistanceTo(mobEnemy.Position) < distanceToClosestMob)
+                    {
+                        closestMob = mobEnemy;
+                    }
+                }
+            }
+
+            if (closestMob != null)
+            {
+                mob.AttackMob(closestMob);
+            }
+        }
+
+        for (int i = 0; i < Mobs.Count; i++)
+        {
+            if (Mobs[i].IsDead())
+            {
+                Mobs.RemoveAt(i);
+                i--;
+            }
+        }
     }
 
     public void LeftClickOnMob(Mob mobClicked){

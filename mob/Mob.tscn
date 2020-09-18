@@ -614,4 +614,13 @@ script = ExtResource( 7 )
 visible = false
 position = Vector2( 0, -11 )
 
+[node name="LabelName" type="Label" parent="UI"]
+margin_left = -6.98659
+margin_top = 2.37841
+margin_right = 33.0134
+margin_bottom = 16.3784
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [editable path="UI/SelectionArea"]

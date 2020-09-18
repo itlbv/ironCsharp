@@ -28,12 +28,9 @@ public class Animation : Node2D
 
     public override void _Process(float delta)
     {
-        if (Actions is null) 
-        {
-            if (OwnerMob.Actions is null) {return;}
-            Actions = OwnerMob.Actions;
-        } 
-        if (Actions.IsIdle()) {return;}
+        CheckIfOwnerMobIsLoaded(); // TODO quick fix, consider rewriting
+
+        if (Actions.IsIdle() || OwnerMob.IsDead()) {return;}
         
         AbstractAction currentAction = Actions.GetCurrentAction();
             if (currentAction is Move)
@@ -42,6 +39,15 @@ public class Animation : Node2D
                 SetAnimationDirection(moveAction.VelocityVector);
                 AnimationState.Travel("walk");
             }
+    }
+
+    private void CheckIfOwnerMobIsLoaded()
+    {
+        if (Actions is null) 
+        {
+            if (OwnerMob.Actions is null) {return;}
+            Actions = OwnerMob.Actions;
+        } 
     }
 
     public void AnimateHit(Vector2 directionToTarget)

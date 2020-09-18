@@ -16,7 +16,10 @@ public class Actions : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
-        if (IsIdle()){return;}
+        if (IsIdle() || OwnerMob.IsDead())
+        {
+            return;
+        }
 
         if (GetCurrentAction().Finished)
         {

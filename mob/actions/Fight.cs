@@ -38,6 +38,11 @@ public class Fight : AbstractAction
         }
     }
 
+    private bool TargetIsNotClose()
+    {
+        return OwnerMob.Position.DistanceTo(TargetMob.Position) > 10;
+    }
+
     private void PerformAttack()
     {
         OwnerMob.Animation.AnimateHit(GetDirectionToTarget());
@@ -57,10 +62,6 @@ public class Fight : AbstractAction
         PerformAttack();
     }
 
-    private bool TargetIsNotClose()
-    {
-        return OwnerMob.Position.DistanceTo(TargetMob.Position) > 10;
-    }
     public override void Finish()
     {
         Finished = true;
