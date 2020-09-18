@@ -153,11 +153,16 @@ script = ExtResource( 6 )
 width = 3.0
 default_color = Color( 0.4, 0.501961, 1, 1 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 70.7191, 57.4759 )
 
-[node name="Mob" parent="." instance=ExtResource( 5 )]
+[node name="Mob" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 322.848, 140.325 )
 
-[node name="Mob2" parent="." instance=ExtResource( 5 )]
+[node name="Mob2" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 520.838, 182.005 )
+
+[node name="Mob3" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 199.791, 279.246 )

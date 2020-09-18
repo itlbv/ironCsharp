@@ -13,19 +13,17 @@ public class Game : Node
 
     public void CreateMobs()
     {
-        GetNode("Mob/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        Mobs.Add(GetNode<Mob>("Mob"));
+        GetNode("YSort/Mob/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("YSort/Mob/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        Mobs.Add(GetNode<Mob>("YSort/Mob"));
         
-        GetNode("Mob2/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        Mobs.Add(GetNode<Mob>("Mob2"));
+        GetNode("YSort/Mob2/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("YSort/Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        Mobs.Add(GetNode<Mob>("YSort/Mob2"));
         
-        /*
-        GetNode("Mob3/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("Mob3/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        Mobs.Add(GetNode<Mob>("Mob3"));
-        */
+        GetNode("YSort/Mob3/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+        GetNode("YSort/Mob3/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+        Mobs.Add(GetNode<Mob>("YSort/Mob3"));
     }
 
     public override void _Process(float delta)

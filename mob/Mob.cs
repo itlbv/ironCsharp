@@ -41,12 +41,8 @@ public class Mob : KinematicBody2D
     {
         Log("is dead");
         Animation.AnimateDie();
-        
         Actions.Clear();
-        //Actions.QueueFree();
-
         GetNode("BodyCollisionShape").QueueFree();
-        //SetProcess(false);
     }
 
     public bool IsDead()
