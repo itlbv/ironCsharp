@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class Game : Node
 {
     private Mob SelectedMob;
+    PackedScene MobScene = (PackedScene) GD.Load("res://mob/Mob.tscn");
     private List<Mob> Mobs = new List<Mob>();
 
     public override void _Ready()
@@ -11,40 +12,54 @@ public class Game : Node
         CreateMobs();
     }
 
+    RandomNumberGenerator RandomNumber = new RandomNumberGenerator();
     public void CreateMobs()
     {
-        GetNode("YSort/Mob/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("YSort/Mob/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        Mobs.Add(GetNode<Mob>("YSort/Mob"));
-        
-        GetNode("YSort/Mob2/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("YSort/Mob2/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        Mobs.Add(GetNode<Mob>("YSort/Mob2"));
-        
-        GetNode("YSort/Mob3/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
-        GetNode("YSort/Mob3/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
-        Mobs.Add(GetNode<Mob>("YSort/Mob3"));
+        float rightX = 50;
+        float leftX = 580;
+        float upY = 50;
+        float downY = 430;
+
+        YSort ySort = GetNode<YSort>("YSort");
+
+        for (int i = 0; i < 5; i++)
+        {
+            float x = RandomNumber.RandfRange(rightX, leftX);
+            float y = RandomNumber.RandfRange(upY, downY);
+
+            Mob mob = (Mob) MobScene.Instance();
+            mob.Name = "Mob" + i.ToString();
+            mob.Position = new Vector2(x, y);
+            ySort.AddChild(mob);
+            GetNode("YSort/Mob" + i.ToString() + "/UI/SelectionArea").Connect("LeftClick", this, nameof(LeftClickOnMob));
+            GetNode("YSort/Mob" + i.ToString() + "/UI/SelectionArea").Connect("RightClick", this, nameof(RightCLickOnMob));
+            Mobs.Add(mob);
+        }
     }
 
     public override void _Process(float delta)
     {
         base._Process(delta);
+        AssignTargetsToMobs();
+    }
 
+    private void AssignTargetsToMobs()
+    {
         if (Mobs.Count < 2) {return;}
         foreach (Mob mob in Mobs)
         {
+            if (mob.IsDead()){return;}
+            if (!mob.Actions.IsIdle()){return;}
+
             Mob closestMob = null;
-            if (mob.Actions.IsIdle())
+            float distanceToClosestMob = float.MaxValue;
+            foreach (Mob mobEnemy in Mobs)
             {
-                float distanceToClosestMob = float.PositiveInfinity;
-                foreach (Mob mobEnemy in Mobs)
+                if (mobEnemy == mob) {continue;}
+                if (mobEnemy.IsDead()) {continue;}
+                if (mob.Position.DistanceTo(mobEnemy.Position) < distanceToClosestMob)
                 {
-                    if (mobEnemy == mob) {continue;}
-                    if (mobEnemy.IsDead()) {continue;}
-                    if (mob.Position.DistanceTo(mobEnemy.Position) < distanceToClosestMob)
-                    {
-                        closestMob = mobEnemy;
-                    }
+                    closestMob = mobEnemy;
                 }
             }
 
