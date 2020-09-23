@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/vegetation/spruce_tree/spruce_tree.png" type="Texture" id=1]
+[ext_resource path="res://objects/vegetation/spruce_tree/SpruceTree.cs" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.53622
 
 [node name="SpruceTree" type="StaticBody2D"]
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.793701, -27.9779 )

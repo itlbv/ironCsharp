@@ -65,6 +65,7 @@
     <Compile Include="mob\animation\Animation.cs" />
     <Compile Include="mob\Behaviour.cs" />
     <Compile Include="mob\Mob.cs" />
+    <Compile Include="objects\vegetation\spruce_tree\SpruceTree.cs" />
     <Compile Include="player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\selection_area\SelectionArea.cs" />
