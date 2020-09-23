@@ -556,7 +556,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Animation"]
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, -16 )
+offset = Vector2( 0, -9 )
 vframes = 4
 hframes = 10
 frame = 10
@@ -615,10 +615,10 @@ visible = false
 position = Vector2( 0, -11 )
 
 [node name="LabelName" type="Label" parent="UI"]
-margin_left = -6.98659
-margin_top = 2.37841
-margin_right = 33.0134
-margin_bottom = 16.3784
+margin_left = -8.40399
+margin_top = -0.771393
+margin_right = 31.596
+margin_bottom = 13.2286
 __meta__ = {
 "_edit_use_anchors_": false
 }
