@@ -558,6 +558,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Animation"]
+light_mask = -2147483647
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -9 )

@@ -47,6 +47,7 @@ public class Mob : KinematicBody2D
         Actions.QueueFree();
         Behaviour.QueueFree();
         GetNode("BodyCollisionShape").QueueFree();
+        GetNode<Label>("UI/LabelName").Text = "";
     }
 
     public bool IsDead()

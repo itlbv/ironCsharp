@@ -68,6 +68,7 @@ public class Animation : Node2D
         HurtAnimationDelayTimer.Start();
         await ToSignal(HurtAnimationDelayTimer, "timeout");
         AnimationState.Travel("die");
+        GetNode<Sprite>("Sprite").Modulate = new Color(0.8f, 0.8f, 0.8f);
     }
 
     private void SetAnimationDirection(Vector2 direction)

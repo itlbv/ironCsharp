@@ -22,7 +22,7 @@ public class Game : Node
 
         YSort ySort = GetNode<YSort>("YSort");
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 100; i++)
         {
             float x = RandomNumber.RandfRange(rightX, leftX);
             float y = RandomNumber.RandfRange(upY, downY);
