@@ -5,7 +5,7 @@ public class Game : Node
 {
     private Mob SelectedMob;
     PackedScene MobScene = (PackedScene) GD.Load("res://mob/Mob.tscn");
-    private List<Mob> Mobs = new List<Mob>();
+    public List<Mob> Mobs = new List<Mob>();
 
     public override void _Ready()
     {
@@ -40,40 +40,17 @@ public class Game : Node
     public override void _Process(float delta)
     {
         base._Process(delta);
-        AssignTargetsToMobs();
+        RemoveDeadMobsFromList();
     }
 
-    private void AssignTargetsToMobs()
+    private void RemoveDeadMobsFromList()
     {
-        if (Mobs.Count < 2) {return;}
-        foreach (Mob mob in Mobs)
-        {
-            if (mob.IsDead()){return;}
-            if (!mob.Actions.IsIdle()){return;}
-
-            Mob closestMob = null;
-            float distanceToClosestMob = float.MaxValue;
-            foreach (Mob mobEnemy in Mobs)
-            {
-                if (mobEnemy == mob) {continue;}
-                if (mobEnemy.IsDead()) {continue;}
-                if (mob.Position.DistanceTo(mobEnemy.Position) < distanceToClosestMob)
-                {
-                    closestMob = mobEnemy;
-                }
-            }
-
-            if (closestMob != null)
-            {
-                mob.AttackMob(closestMob);
-            }
-        }
-
         for (int i = 0; i < Mobs.Count; i++)
         {
             if (Mobs[i].IsDead())
             {
                 Mobs.RemoveAt(i);
+                GD.Print("Mob removed");
                 i--;
             }
         }

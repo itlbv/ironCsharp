@@ -7,11 +7,13 @@ public class Mob : KinematicBody2D
 
     public Actions Actions;
     public Animation Animation;
+    private Behaviour Behaviour;
     
     public override void _Ready()
     {
         Actions = GetNode<Actions>("Actions");
         Animation = GetNode<Animation>("Animation");
+        Behaviour = GetNode<Behaviour>("Behaviour");
         GetNode<Label>("UI/LabelName").Text = Name;
     }
 
@@ -43,6 +45,7 @@ public class Mob : KinematicBody2D
         Animation.AnimateDie();
         Actions.Clear();
         Actions.QueueFree();
+        Behaviour.QueueFree();
         GetNode("BodyCollisionShape").QueueFree();
     }
 
